@@ -313,8 +313,23 @@ function getProductList(products, disableTopProductSort){
     // Show Product List 
     var productItem = '';
     var topProducts = '';
-    products.forEach((obj, index)=> {
+    console.log(products.length)
+    let totalProduct = Math.ceil(products.length/pageSize);
+    
+    
+    var paginationList = ``
 
+    var i;
+    for (i = 0; i < totalProduct; i++) {
+        paginationList += `<li class="page-item"><button class="page-link" onclick="changePage(${i+1})">${i+1}</button></li>`;
+    } 
+
+    document.getElementById('pagination').innerHTML = paginationList;
+    
+    let endPageNumber = pageNo * pageSize;
+    let startPageNumber = endPageNumber - pageSize ;
+    var slicedproducts = products.slice(startPageNumber, endPageNumber);
+    slicedproducts.forEach((obj, index)=> {
     productItem += `<div class="col-12 col-sm-4">
     <div class="product category__products">
     <div class="product__header">
